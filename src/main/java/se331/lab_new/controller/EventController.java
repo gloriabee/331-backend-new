@@ -1,10 +1,13 @@
 package se331.lab_new.controller;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 import se331.lab_new.entity.Event;
 import jakarta.annotation.PostConstruct;
 
@@ -102,6 +105,9 @@ public class EventController {
 
     }
 
+    //Find Events with parameters like
+    //localhost:8080/events
+    //localhost:8080/events?_limit=3, localhost:8080/events?_limit=5&_page=2
     @GetMapping("events")
     //to add params just change inside the parameter, for invalid error use try catch
     public ResponseEntity<?> getEventLists(
@@ -120,9 +126,30 @@ public class EventController {
         } catch (IndexOutOfBoundsException e){
             return ResponseEntity.ok(output);
         }
-
-
     }
 
+    //find event by id using path variable
+    //The usage of path is just put / and put the variable you want inside {}
+    @GetMapping("events/{id}")
+    public ResponseEntity<?> getEvent(@PathVariable Long id){
+        //The result must be Event type and declare null at first.
+        Event output=null;
+        //Retrieving event item with Event entity from eventList
+        for(Event event: eventList){
+            //checking each id of event equal id from parameter
+            if(event.getId().equals(id)){
+                //if it same, put event object inside output
+                output=event;
+                break;
+            }
+        }
+        //Returning ResponseEntity
+        if(output!=null){
+            return ResponseEntity.ok(output);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"The given id is not found");
+        }
+    }
 
 }
