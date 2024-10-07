@@ -95,18 +95,7 @@ public class EventDaoImpl implements EventDao {
                 .organizer("Brody Kill")
                 .build());
 
-        //adding event item 6
-        eventList.add(Event.builder()
-                .id(1003L)
-                .category("sustainability")
-                .title("Highway Cleanup")
-                .description("Help pick up trash along the highway.")
-                .location("Highway 50")
-                .date("July 22, 2022")
-                .time("11:00")
-                .petsAllowed(false)
-                .organizer("Brody Kill")
-                .build());
+
     }
 
     @Override
