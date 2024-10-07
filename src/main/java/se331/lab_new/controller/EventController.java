@@ -1,6 +1,7 @@
 package se331.lab_new.controller;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -102,6 +103,18 @@ public class EventController {
                 .organizer("Brody Kill")
                 .build());
 
+        //adding event item 6
+        eventList.add(Event.builder()
+                .id(1003L)
+                .category("sustainability")
+                .title("Highway Cleanup")
+                .description("Help pick up trash along the highway.")
+                .location("Highway 50")
+                .date("July 22, 2022")
+                .time("11:00")
+                .petsAllowed(false)
+                .organizer("Brody Kill")
+                .build());
 
     }
 
@@ -118,13 +131,17 @@ public class EventController {
         page=page==null?1:page;
         Integer firstIndex=(page-1)*perPage;
         List<Event> output=new ArrayList<>();
+        HttpHeaders responseHeader=new HttpHeaders();
+        responseHeader.set("x-total-count",String.valueOf(eventList.size()));
         try{
             for(int i=firstIndex;i<firstIndex+perPage;i++){
                 output.add(eventList.get(i));
             }
-            return ResponseEntity.ok(output);
+            return new
+                    ResponseEntity<>(output,responseHeader,HttpStatus.OK);
         } catch (IndexOutOfBoundsException e){
-            return ResponseEntity.ok(output);
+            return new
+                    ResponseEntity<>(output,responseHeader,HttpStatus.OK);
         }
     }
 
