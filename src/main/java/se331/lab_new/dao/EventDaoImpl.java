@@ -95,6 +95,19 @@ public class EventDaoImpl implements EventDao {
                 .organizer("Brody Kill")
                 .build());
 
+        //adding event item 7
+        eventList.add(Event.builder()
+                .id(1103L)
+                .category("Testing7")
+                .title("Testing 7")
+                .description("Help pick up trash along the highway.")
+                .location("Highway 50")
+                .date("July 22, 2022")
+                .time("11:00")
+                .petsAllowed(false)
+                .organizer("Brody Kill")
+                .build());
+
 
     }
 
@@ -105,25 +118,20 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<Event> getEvents(Integer pageSize, Integer page) {
-        pageSize=pageSize==null?eventList.size():pageSize;
+        pageSize=pageSize==null?getEventSize():pageSize;
         page=page==null?1:page;
-        Integer firstIndex=(page-1)*pageSize;
-        List<Event> output=new ArrayList<>();
-        for(int i=firstIndex;i<firstIndex+pageSize;i++) {
-            output.add(eventList.get(i));
+        int firstIndex=(page-1)*pageSize;
+        if(firstIndex>=eventList.size()){
+            return new ArrayList<>();
         }
-        return output;
+        int endIndex=Math.min(firstIndex+pageSize,eventList.size());
+        return eventList.subList(firstIndex,endIndex);
+
     }
 
     @Override
     public Event getEvent(Long id) {
-        Event output=null;
-        for(Event event:eventList) {
-            if(event.getId().equals(id)) {
-                output=event;
-                break;
-            }
-        }
-        return output;
+       return eventList.stream().filter(event ->
+               event.getId().equals(id)).findFirst().orElse(null);
     }
 }

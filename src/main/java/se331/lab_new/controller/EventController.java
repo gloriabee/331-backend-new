@@ -22,19 +22,18 @@ import java.util.List;
 
 public class EventController {
     final EventService eventService;
-    //Find Events with parameters like
-    //localhost:8080/events
-    //localhost:8080/events?_limit=3, localhost:8080/events?_limit=5&_page=2
+
     @GetMapping("events")
     //to add params just change inside the parameter, for invalid error use try catch
     public ResponseEntity<?> getEventLists(
             @RequestParam(value = "_limit",required = false) Integer perPage,
             @RequestParam(value = "_page",required = false) Integer page
     ){
-        List<Event> output=null;
+
         Integer eventSize=eventService.getEventSize();
         HttpHeaders responseHeader=new HttpHeaders();
         responseHeader.set("x-total-count",String.valueOf(eventSize));
+        List<Event> output=null;
         try{
             output=eventService.getEvents(perPage,page);
             return new
@@ -43,6 +42,8 @@ public class EventController {
             return new
                     ResponseEntity<>(output,responseHeader,HttpStatus.NOT_FOUND);
         }
+
+
     }
 
     //find event by id using path variable
