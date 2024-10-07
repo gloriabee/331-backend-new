@@ -16,5 +16,5 @@ public class Event {
     Boolean petsAllowed;
     String organizer;
 
-//    Organizer organizer; 1 event has many organizers so it keeps organizer object
+//    Organizer organizer; Many events have one organizer so it keeps organizer object
 }
