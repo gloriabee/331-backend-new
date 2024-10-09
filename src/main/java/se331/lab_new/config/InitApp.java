@@ -22,6 +22,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final OrganizerRepository organizerRepository;
 
     @Override
+    //to add organization id into event table as a foreign key
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         //for organizers data initializers

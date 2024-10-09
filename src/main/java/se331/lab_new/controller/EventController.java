@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import se331.lab_new.entity.Event;
 import jakarta.annotation.PostConstruct;
 import se331.lab_new.service.EventService;
+import se331.lab_new.util.LabMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,10 @@ public class EventController {
         Page<Event> pageOutput=eventService.getEvents(perPage,page);
         HttpHeaders responseHeader=new HttpHeaders();
         responseHeader.set("x-total-count",String.valueOf(pageOutput.getTotalElements()));
-        return new ResponseEntity<>(pageOutput.getContent(),responseHeader,HttpStatus.OK);
+        return new ResponseEntity<>
+                (LabMapper.INSTANCE.getEventDto(pageOutput.getContent()),
+                        responseHeader,
+                        HttpStatus.OK);
     }
 
     //find event by id using path variable
@@ -44,7 +48,7 @@ public class EventController {
 
         //Returning ResponseEntity
         if(output!=null){
-            return ResponseEntity.ok(output);
+            return ResponseEntity.ok(LabMapper.INSTANCE.getEventDtO(output));
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"The given id is not found");
@@ -54,6 +58,6 @@ public class EventController {
     @PostMapping("/events")
     public ResponseEntity<?> addEvent(@RequestBody Event event){
         Event output=eventService.save(event);
-        return ResponseEntity.ok(output);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getEventDtO(output));
     }
 }
