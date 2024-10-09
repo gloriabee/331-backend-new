@@ -2,6 +2,7 @@ package se331.lab_new.controller;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,20 +31,10 @@ public class EventController {
             @RequestParam(value = "_page",required = false) Integer page
     ){
 
-        Integer eventSize=eventService.getEventSize();
+        Page<Event> pageOutput=eventService.getEvents(perPage,page);
         HttpHeaders responseHeader=new HttpHeaders();
-        responseHeader.set("x-total-count",String.valueOf(eventSize));
-        List<Event> output=null;
-        try{
-            output=eventService.getEvents(perPage,page);
-            return new
-                    ResponseEntity<>(output,responseHeader,HttpStatus.OK);
-        } catch (IndexOutOfBoundsException e){
-            return new
-                    ResponseEntity<>(output,responseHeader,HttpStatus.NOT_FOUND);
-        }
-
-
+        responseHeader.set("x-total-count",String.valueOf(pageOutput.getTotalElements()));
+        return new ResponseEntity<>(pageOutput.getContent(),responseHeader,HttpStatus.OK);
     }
 
     //find event by id using path variable
