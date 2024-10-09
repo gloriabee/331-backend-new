@@ -7,7 +7,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import se331.lab_new.entity.Event;
+import se331.lab_new.entity.Organizer;
 import se331.lab_new.repository.EventRepository;
+import se331.lab_new.repository.OrganizerRepository;
 
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepository;
+    final OrganizerRepository organizerRepository;
+
     @Override
 
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -60,6 +64,43 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .petsAllowed(true)
                 .organizer("Chiangmai Municipality")
                 .build());
+
+       //for organizers data initializers
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 1")
+                .address("Chiangmai")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 2")
+                .address("Bangkok")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 3")
+                .address("Phuket")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 4")
+                .address("Pattaya")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 5")
+                .address("Chiang Rai")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 6")
+                .address("Ayutthaya")
+                .build());
+
+        organizerRepository.save(Organizer.builder()
+                .name("Organization 7")
+                .address("Mae Hong Son")
+                .build());
+
     }
 
     @Override
