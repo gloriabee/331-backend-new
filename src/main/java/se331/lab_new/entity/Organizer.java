@@ -3,6 +3,7 @@ package se331.lab_new.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,5 +22,6 @@ public class Organizer {
 
     //1 organizer can have many events
     @OneToMany(mappedBy = "organizer")
-    List<Event> ownEvents;
+            @Builder.Default
+    List<Event> ownEvents=new ArrayList<>();
 }

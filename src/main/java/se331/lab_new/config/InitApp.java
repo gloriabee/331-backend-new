@@ -22,18 +22,32 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final OrganizerRepository organizerRepository;
 
     @Override
-
+    @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-      eventRepository.save(Event.builder()
-              .category("Academic")
-              .title("Midterm Exam")
-              .description("A time for taking the exam")
-              .location("CAMT Building")
-              .date("3rd Sept")
-              .time("3.00-4.00pm.")
-              .petsAllowed(false)
-              .build());
-        eventRepository.save(Event.builder()
+        //for organizers data initializers
+        Organizer org1,org2,org3;
+        org1=organizerRepository.save(Organizer.builder()
+                .name("CAMT").build());
+        org2=organizerRepository.save(Organizer.builder()
+                .name("CMU").build());
+        org3=organizerRepository.save(Organizer.builder()
+                .name("ChiangMai").build());
+
+        //Storing event info and organizer into event
+        Event tempEvent;
+        tempEvent=eventRepository.save(Event.builder()
+                .category("Academic")
+                .title("Midterm Exam")
+                .description("A time for taking the exam")
+                .location("CAMT Building")
+                .date("3rd Sept")
+                .time("3.00-4.00pm.")
+                .petsAllowed(false)
+                .build());
+        tempEvent.setOrganizer(org1);
+        org1.getOwnEvents().add(tempEvent);
+
+        tempEvent=eventRepository.save(Event.builder()
                 .category("Academic")
                 .title("Commencement Day")
                 .description("A time for celebration")
@@ -42,7 +56,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("8,00am-4.00pm.")
                 .petsAllowed(false)
                 .build());
-        eventRepository.save(Event.builder()
+        tempEvent.setOrganizer(org1);
+        org1.getOwnEvents().add(tempEvent);
+
+        tempEvent= eventRepository.save(Event.builder()
                 .category("Cultural")
                 .title("Loy Krathong")
                 .description("A time for Karathong")
@@ -51,7 +68,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("8.00-10.00pm.")
                 .petsAllowed(false)
                 .build());
-        eventRepository.save(Event.builder()
+        tempEvent.setOrganizer(org2);
+        org2.getOwnEvents().add(tempEvent);
+
+        tempEvent= eventRepository.save(Event.builder()
                 .category("Cultural")
                 .title("Songkran")
                 .description("Let's play water")
@@ -60,35 +80,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("10.00am - 6.00pm.")
                 .petsAllowed(true)
                 .build());
+        tempEvent.setOrganizer(org3);
+        org3.getOwnEvents().add(tempEvent);
 
-       //for organizers data initializers
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 1")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 2")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 3")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 4")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 5")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 6")
-                .build());
-
-        organizerRepository.save(Organizer.builder()
-                .name("Organization 7")
-                .build());
 
     }
 
