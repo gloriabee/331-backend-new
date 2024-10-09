@@ -1,6 +1,7 @@
 package se331.lab_new.dao;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import se331.lab_new.entity.Event;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 //the annotation to indicate that the class provide for storage, retrieval, search, update and delete operation on objects
 @Repository
+@Profile("manual")
 public class EventDaoImpl implements EventDao {
 
     List<Event> eventList;
