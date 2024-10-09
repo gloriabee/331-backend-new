@@ -1,10 +1,9 @@
 package se331.lab_new.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @Data
@@ -23,7 +22,17 @@ public class Event {
     String date;
     String time;
     Boolean petsAllowed;
-    String organizer;
+    //many events can be hold by 1 organizer
+
+    @ManyToOne
+    Organizer organizer;
+
+
+    @ManyToMany(mappedBy = "eventHistory")
+    //1 event is belonged to many participants
+    List<Participant> participants;
+
+
 
 //    Organizer organizer; Many events have one organizer so it keeps organizer object
 }

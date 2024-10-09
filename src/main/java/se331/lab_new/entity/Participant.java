@@ -11,15 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Organizer {
+public class Participant {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     Long id;
     String name;
-    //the events that organizer organize
-
-    //1 organizer can have many events
-    @OneToMany(mappedBy = "organizer")
-    List<Event> ownEvents;
+    String telNo;
+    @ManyToMany
+    List<Event> eventHistory;
 }

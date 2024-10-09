@@ -32,7 +32,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
               .date("3rd Sept")
               .time("3.00-4.00pm.")
               .petsAllowed(false)
-              .organizer("CAMT")
               .build());
         eventRepository.save(Event.builder()
                 .category("Academic")
@@ -42,7 +41,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("21st Jan")
                 .time("8,00am-4.00pm.")
                 .petsAllowed(false)
-                .organizer("CMU")
                 .build());
         eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -52,7 +50,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("21th Nov")
                 .time("8.00-10.00pm.")
                 .petsAllowed(false)
-                .organizer("Chiangmai")
                 .build());
         eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -62,43 +59,35 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("13th April")
                 .time("10.00am - 6.00pm.")
                 .petsAllowed(true)
-                .organizer("Chiangmai Municipality")
                 .build());
 
        //for organizers data initializers
         organizerRepository.save(Organizer.builder()
                 .name("Organization 1")
-                .address("Chiangmai")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 2")
-                .address("Bangkok")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 3")
-                .address("Phuket")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 4")
-                .address("Pattaya")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 5")
-                .address("Chiang Rai")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 6")
-                .address("Ayutthaya")
                 .build());
 
         organizerRepository.save(Organizer.builder()
                 .name("Organization 7")
-                .address("Mae Hong Son")
                 .build());
 
     }
