@@ -10,40 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import se331.lab_new.entity.Organizer;
 import se331.lab_new.service.OrganizerService;
+import se331.lab_new.util.LabMapper;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class OrganizerController {
     final OrganizerService organizerService;
-
-    @GetMapping("organizers")
-    public ResponseEntity<?> getOrganizerLists(
-            @RequestParam(value="_limit",required=false,defaultValue = "10") Integer perPage,
-            @RequestParam(value="_page",required=false,defaultValue = "1") Integer page
-    ){
-        Page<Organizer> pageOutput=organizerService.getOrganizers(perPage,page);
-        HttpHeaders responseHeader=new HttpHeaders();
-        responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
-        return new ResponseEntity<>(pageOutput.getContent(), responseHeader, HttpStatus.OK);
-    }
-
-    @GetMapping("organizers/{id}")
-    public ResponseEntity<?> getOrganizer(@PathVariable("id") Long id){
-        Organizer output=organizerService.getOrganizer(id);
-
-        if(output!=null){
-            return ResponseEntity.ok(output);
-        }
-        else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PostMapping("/organizers")
-    public ResponseEntity<?> addOrganizer(@RequestBody Organizer organizer){
-        Organizer output=organizerService.save(organizer);
-        return ResponseEntity.ok(output);
+    @GetMapping("/organizers")
+    ResponseEntity<?> getOrganizers(){
+        return ResponseEntity.ok(
+               LabMapper.INSTANCE.getOrganizerDto(organizerService.getAllOrganizers())
+        );
     }
 }
