@@ -9,4 +9,7 @@ public interface EventDao {
     Integer getEventSize();
     Page<Event> getEvents(Integer pageSize, Integer page);
     Event getEvent(Long id);
+    // to save data from api post method
+    Event save(Event event);
+
 }
