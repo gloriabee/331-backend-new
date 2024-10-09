@@ -57,6 +57,13 @@ public class OrganizerDaoImpl implements OrganizerDao{
                 .address("Ayutthaya")
                 .build());
 
+        // Add Organizer 7
+        organizerList.add(Organizer.builder()
+                .id(129L)
+                .name("Organization 7")
+                .address("Mae Hong Son")
+                .build());
+
 
     }
     @Override
