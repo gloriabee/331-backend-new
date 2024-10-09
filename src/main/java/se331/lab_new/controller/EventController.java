@@ -49,7 +49,7 @@ public class EventController {
     //find event by id using path variable
     //The usage of path is just put / and put the variable you want inside {}
     @GetMapping("events/{id}")
-    public ResponseEntity<?> getEvent(@PathVariable Long id){
+    public ResponseEntity<?> getEvent(@PathVariable("id") Long id){
         //The result must be Event type and declare null at first.
         Event output=eventService.getEvent(id);
 
