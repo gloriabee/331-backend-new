@@ -13,6 +13,7 @@ import se331.lab_new.repository.OrganizerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,5 +23,10 @@ public class OrganizerDaoImpl implements OrganizerDao{
     @Override
     public Page<Organizer> getOrganizers(Pageable pageRequest) {
         return organizerRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Optional<Organizer> findById(Long id) {
+        return organizerRepository.findById(id);
     }
 }
