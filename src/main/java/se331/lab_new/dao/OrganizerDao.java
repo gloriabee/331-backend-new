@@ -11,11 +11,4 @@ public interface OrganizerDao {
 
     Page<Organizer> getOrganizers(Pageable pageRequest);
     Optional<Organizer> findById(Long id);
-//    Organizer getOrganizer(Long id);
-//
-//    //to save organizer from api post method (temporary data)
-//    Organizer save(Organizer organizer);
-
-
-
 }
