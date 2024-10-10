@@ -3,6 +3,7 @@ package se331.lab_new.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -29,8 +30,9 @@ public class Event {
 
 
     @ManyToMany(mappedBy = "eventHistory")
+    @Builder.Default
     //1 event is belonged to many participants
-    List<Participant> participants;
+    List<Participant> participants=new ArrayList<>();
 
 
 

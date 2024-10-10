@@ -8,8 +8,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import se331.lab_new.entity.Event;
 import se331.lab_new.entity.Organizer;
+import se331.lab_new.entity.Participant;
 import se331.lab_new.repository.EventRepository;
 import se331.lab_new.repository.OrganizerRepository;
+import se331.lab_new.repository.ParticipantRepository;
 
 
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final EventRepository eventRepository;
     final OrganizerRepository organizerRepository;
+    final ParticipantRepository participantRepository;
+
 
     @Override
     //to add organization id into event table as a foreign key
@@ -27,12 +31,42 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         //for organizers data initializers
         Organizer org1,org2,org3;
+
+        //for participants data initializers
+        Participant p1,p2,p3,p4,p5;
+
         org1=organizerRepository.save(Organizer.builder()
                 .name("CAMT").build());
         org2=organizerRepository.save(Organizer.builder()
                 .name("CMU").build());
         org3=organizerRepository.save(Organizer.builder()
                 .name("ChiangMai").build());
+
+
+        p1=participantRepository.save(Participant.builder()
+                .name("Gloria")
+                .telNo("09243423424")
+                .build());
+        p2 = participantRepository.save(Participant.builder()
+                .name("John")
+                .telNo("09243423425")
+                .build());
+
+        p3 = participantRepository.save(Participant.builder()
+                .name("Alice")
+                .telNo("09243423426")
+                .build());
+
+        p4 = participantRepository.save(Participant.builder()
+                .name("Michael")
+                .telNo("09243423427")
+                .build());
+
+        p5 = participantRepository.save(Participant.builder()
+                .name("Sophia")
+                .telNo("09243423428")
+                .build());
+
 
         //Storing event info and organizer into event
         Event tempEvent;
@@ -47,6 +81,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         tempEvent.setOrganizer(org1);
         org1.getOwnEvents().add(tempEvent);
+        tempEvent.setParticipants(List.of(p1,p2,p3));
+        p1.getEventHistory().add(tempEvent);
+        p2.getEventHistory().add(tempEvent);
+        p3.getEventHistory().add(tempEvent);
+
 
         tempEvent=eventRepository.save(Event.builder()
                 .category("Academic")
@@ -59,6 +98,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         tempEvent.setOrganizer(org1);
         org1.getOwnEvents().add(tempEvent);
+        tempEvent.setParticipants(List.of(p2,p5,p4));
+        p2.getEventHistory().add(tempEvent);
+        p4.getEventHistory().add(tempEvent);
+        p5.getEventHistory().add(tempEvent);
+
 
         tempEvent= eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -71,6 +115,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         tempEvent.setOrganizer(org2);
         org2.getOwnEvents().add(tempEvent);
+        tempEvent.setParticipants(List.of(p2,p3,p4));
+        p2.getEventHistory().add(tempEvent);
+        p3.getEventHistory().add(tempEvent);
+        p4.getEventHistory().add(tempEvent);
 
         tempEvent= eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -83,7 +131,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .build());
         tempEvent.setOrganizer(org3);
         org3.getOwnEvents().add(tempEvent);
-
+        tempEvent.setParticipants(List.of(p1,p3,p4));
+        p1.getEventHistory().add(tempEvent);
+        p3.getEventHistory().add(tempEvent);
+        p4.getEventHistory().add(tempEvent);
 
     }
 

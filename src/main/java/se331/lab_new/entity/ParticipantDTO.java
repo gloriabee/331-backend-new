@@ -12,19 +12,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventDTO {
+
+public class ParticipantDTO {
     Long id;
-    String category;
-    String title;
-    String description;
-    String location;
-    String date;
-    String time;
-    Boolean petAllowed;
-    EventOrganizerDTO organizer;
+    String name;
+    String telNo;
 
     @Builder.Default
-    List<EventParticipantDTO> participants = new ArrayList<>();
-
+    List<ParticipantEventDTO> eventHistory=new ArrayList<>();
 
 }
