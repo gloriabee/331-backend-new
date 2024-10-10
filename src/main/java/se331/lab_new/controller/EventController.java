@@ -3,6 +3,7 @@ package se331.lab_new.controller;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,19 @@ public class EventController {
     //to add params just change inside the parameter, for invalid error use try catch
     public ResponseEntity<?> getEventLists(
             @RequestParam(value = "_limit",required = false, defaultValue = "10") Integer perPage,
-            @RequestParam(value = "_page",required = false,defaultValue = "1") Integer page
+            @RequestParam(value = "_page",required = false,defaultValue = "1") Integer page,
+            @RequestParam(value = "title",required = false) String title
     ){
+        perPage=perPage==null?3:perPage;
+        page=page==null?1:page;
+        Page<Event> pageOutput;
+        if(title==null){
+            pageOutput=eventService.getEvents(perPage,page);
+        }
+        else{
+            pageOutput=eventService.getEvents(title, PageRequest.of(page-1,perPage));
+        }
 
-        Page<Event> pageOutput=eventService.getEvents(perPage,page);
         HttpHeaders responseHeader=new HttpHeaders();
         responseHeader.set("x-total-count",String.valueOf(pageOutput.getTotalElements()));
         return new ResponseEntity<>

@@ -8,15 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import se331.lab_new.entity.Event;
 import se331.lab_new.repository.EventRepository;
-
-import java.util.List;
-
-
+@Repository
 @RequiredArgsConstructor
 @Profile("db")
-public class EventDaoDbImpl implements EventDao {
+public class EventDaoImpl implements EventDao{
     final EventRepository eventRepository;
-
     @Override
     public Integer getEventSize() {
         return Math.toIntExact(eventRepository.count());
@@ -27,13 +23,6 @@ public class EventDaoDbImpl implements EventDao {
         return  eventRepository.findAll(PageRequest.of(page - 1, pageSize));
     }
 
-    //finding using only some word
-    @Override
-    public Page<Event> getEvents(String title, Pageable page) {
-      return eventRepository.findByTitleContaining(title,page);
-    }
-
-
     @Override
     public Event getEvent(Long id) {
         return eventRepository.findById(id).orElse(null);
@@ -42,5 +31,10 @@ public class EventDaoDbImpl implements EventDao {
     @Override
     public Event save(Event event) {
         return eventRepository.save(event);
+    }
+
+    @Override
+    public Page<Event> getEvents(String name, Pageable page) {
+        return eventRepository.findByTitleContainingOrDescriptionContaining(name, name, page);
     }
 }
