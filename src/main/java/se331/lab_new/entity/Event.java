@@ -34,7 +34,8 @@ public class Event {
     //1 event is belonged to many participants
     List<Participant> participants=new ArrayList<>();
 
-
+    @ElementCollection
+    List<String> images;
 
 //    Organizer organizer; Many events have one organizer so it keeps organizer object
 }
