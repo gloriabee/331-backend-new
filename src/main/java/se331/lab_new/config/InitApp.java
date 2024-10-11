@@ -14,9 +14,9 @@ import se331.lab_new.entity.Participant;
 import se331.lab_new.repository.EventRepository;
 import se331.lab_new.repository.OrganizerRepository;
 import se331.lab_new.repository.ParticipantRepository;
-import se331.lab_new.rest.security.user.Role;
-import se331.lab_new.rest.security.user.User;
-import se331.lab_new.rest.security.user.UserRepository;
+import se331.lab_new.security.user.Role;
+import se331.lab_new.security.user.User;
+import se331.lab_new.security.user.UserRepository;
 
 
 import java.util.List;

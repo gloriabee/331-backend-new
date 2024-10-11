@@ -1,4 +1,4 @@
-package se331.lab_new.rest.security.config;
+package se331.lab_new.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import se331.lab_new.rest.security.config.JwtAuthenticationFilter;
+import se331.lab_new.security.config.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -32,7 +32,9 @@ public class SecurityConfiguration {
             .csrf((crsf) -> crsf.disable())
             .authorizeHttpRequests((authorize) -> {
 
-              authorize.anyRequest().authenticated();
+              authorize.requestMatchers("/api/v1/auth/**")
+                      .permitAll()
+                      .anyRequest().authenticated();
             })
 
             .sessionManagement((session) ->{

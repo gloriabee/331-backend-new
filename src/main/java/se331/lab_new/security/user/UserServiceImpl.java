@@ -1,4 +1,4 @@
-package se331.lab_new.rest.security.user;
+package se331.lab_new.security.user;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

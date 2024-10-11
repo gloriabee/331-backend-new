@@ -1,11 +1,11 @@
-package se331.lab_new.rest.security.token;
+package se331.lab_new.security.token;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import se331.lab_new.rest.security.user.User;
+import se331.lab_new.security.user.User;
 
 @Data
 @Builder
