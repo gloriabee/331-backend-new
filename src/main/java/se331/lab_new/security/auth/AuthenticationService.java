@@ -42,13 +42,16 @@ public class AuthenticationService {
             .build();
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
+    System.out.println(jwtToken);
     var refreshToken = jwtService.generateRefreshToken(user);
+    System.out.println(refreshToken);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
+             .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .user(LabMapper.INSTANCE.getOrganizerAuthDTO(user.getOrganizer()))
-        .build();
+            .build();
+
+
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -68,6 +71,7 @@ public class AuthenticationService {
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
+            .user(LabMapper.INSTANCE.getOrganizerDtO(user.getOrganizer()))
             .build();
   }
 
